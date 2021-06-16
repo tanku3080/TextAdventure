@@ -15,7 +15,7 @@ public class TestSctipt : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            FadeAndSceneChange.Instance.SceneChange(FadeAndSceneChange.SCENE_STATUS.AUTO);
+            FadeAndSceneChange.Instance.FadeOutChangeSystem();
         }
     }
 }

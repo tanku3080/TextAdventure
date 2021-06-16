@@ -21,7 +21,6 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        SceneManager.activeSceneChanged += SceneChangeEvent;
     }
 
     /// <summary>フェードのみを行う</summary>
@@ -114,7 +113,43 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
     /// <param name="to">ここに</param>
     private void SceneChangeEvent(Scene from,Scene to)
     {
-        FadeSystem(FADE_STATUS.FADE_IN);
-        FadeSystem(FADE_STATUS.FADE_OUT);
+        Debug.Log("呼ばれた");
+    }
+
+    public void FadeOutChangeSystem(float fadeSpeed = 0.02f)
+    {
+        StartCoroutine(FadeOutSceneChangeStart(fadeSpeed));
+    }
+    private IEnumerator FadeOutSceneChangeStart(float fadeSpeed = 0.02f)
+    {
+        CanvasGroup group = GetComponent<CanvasGroup>();
+        fadeStopFlag = false;
+        if (fadeStopFlag != true)
+        {
+            while (true)
+            {
+                yield return null;
+                if (group.alpha >= 1)
+                {
+                    Debug.Log("ここまで来た");
+                    SceneManager.activeSceneChanged += SceneChangeEvent;
+                    SceneChange(SCENE_STATUS.AUTO);
+                    while (true)
+                    {
+                        yield return null;
+                        if (group.alpha <= 0)
+                        {
+                            Debug.Log("終わりの到達点");
+                            fadeStopFlag = true;
+                            break;
+                        }
+                        else group.alpha -= fadeSpeed;
+                    }
+                    break;
+                }
+                else group.alpha += fadeSpeed;
+            }
+        }
+        yield return 0;
     }
 }

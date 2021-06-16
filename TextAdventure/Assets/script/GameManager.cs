@@ -18,14 +18,12 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void StageButton1()
     {
         Debug.Log("押された");
         nowChapter = 1;
-        FadeAndSceneChange.Instance.FadeSystem(FadeAndSceneChange.FADE_STATUS.AUTO);
-        FadeAndSceneChange.Instance.SceneChange(FadeAndSceneChange.SCENE_STATUS.AUTO);
+        FadeAndSceneChange.Instance.FadeOutChangeSystem();
     }
     public void StageButton2()
     {
