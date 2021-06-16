@@ -17,6 +17,7 @@ public class TitleSceneButton : MonoBehaviour
     {
         
     }
+    //以下はstageselectのイベントに対応したメソッド
     public void StageButton1()
     {
         GameManager.Instance.nowChapter = 1;
@@ -45,7 +46,7 @@ public class TitleSceneButton : MonoBehaviour
 
     public void OkButton()
     {
-        FadeAndSceneChange.Instance.FadeOutChangeSystem(0.05f);
+        FadeAndSceneChange.Instance.FadeOutChangeSystem(0.005f);
     }
     public void NoButton()
     {
