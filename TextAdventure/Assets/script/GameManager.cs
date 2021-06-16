@@ -7,9 +7,8 @@ public class GameManager : Singleton<GameManager>
 {
     [HideInInspector] public bool isGameOvar = false;
     [HideInInspector] public bool isGameClear = false;
-    private int nowChapter = 1;
     /// <summary>今のチャプター</summary>
-    public int Chapter { get { return nowChapter; } set { Chapter = nowChapter; } }
+    public int nowChapter = 0;
     void Start()
     {
         
@@ -19,24 +18,12 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
     }
-    public void StageButton1()
+
+    /// <summary>UIをアクティブ非アクティブ化する関数</summary>
+    /// <param name="obj">指定のオブジェクト</param>
+    /// <param name="isActive">trueならアクティブ、falseなら非アクティブ</param>
+    public void UiActiveSystem(GameObject obj,bool isActive = true)
     {
-        Debug.Log("押された");
-        nowChapter = 1;
-        FadeAndSceneChange.Instance.FadeOutChangeSystem();
-    }
-    public void StageButton2()
-    {
-        nowChapter = 2;
-        FadeAndSceneChange.Instance.FadeSystem(FadeAndSceneChange.FADE_STATUS.AUTO);
-        FadeAndSceneChange.Instance.SceneChange(FadeAndSceneChange.SCENE_STATUS.AUTO);
-    }
-    public void StageButton3()
-    {
-        nowChapter = 3;
-    }
-    public void StageButton4()
-    {
-        nowChapter = 4;
+        obj.SetActive(isActive);
     }
 }

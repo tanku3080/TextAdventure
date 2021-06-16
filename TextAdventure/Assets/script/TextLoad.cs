@@ -42,7 +42,7 @@ public class TextLoad : MonoBehaviour
 	}
 	void LoadTextSet()
     {
-		asset = Resources.Load<TextAsset>($"texts/Text{GameManager.Instance.Chapter}");
+		asset = Resources.Load<TextAsset>($"texts/Text{GameManager.Instance.nowChapter}");
 		stringNum = asset.text;
 		unit = stringNum.Split('\n');
 	}
