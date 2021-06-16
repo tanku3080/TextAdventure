@@ -26,13 +26,22 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
     /// <summary>フェードのみを行う</summary>
     /// <param name="_STATUS">どんなFadeを行うか？</param>
     /// <param name="fadeSpeed">フェード速度。初期値0.02f</param>
-    public void FadeSystem(FADE_STATUS _STATUS = FADE_STATUS.NONE, float fadeSpeed = 0.02f)
+    public void FadeSystem(FADE_STATUS _STATUS = FADE_STATUS.NONE, float fadeSpeed = 0.02f,CanvasGroup obj = null)
     {
-        StartCoroutine(StartFadeSystem(_STATUS,fadeSpeed));
+        StartCoroutine(StartFadeSystem(_STATUS,fadeSpeed,obj));
     }
-    private IEnumerator StartFadeSystem(FADE_STATUS _STATUS = FADE_STATUS.NONE,float fadeSpeed = 0.02f)
+    private IEnumerator StartFadeSystem(FADE_STATUS _STATUS = FADE_STATUS.NONE,float fadeSpeed = 0.02f,CanvasGroup obj = null)
     {
-        CanvasGroup group = GetComponent<CanvasGroup>();
+        CanvasGroup group;
+        if (obj != null)
+        {
+            group = obj.GetComponent<CanvasGroup>();
+        }
+        else
+        {
+            group = GetComponent<CanvasGroup>();
+        }
+
         fadeStopFlag = false;
         switch (_STATUS)
         {
@@ -116,6 +125,8 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
         Debug.Log("呼ばれた");
     }
 
+    /// <summary>フェードアウトとシーン切り替えを行う</summary>
+    /// <param name="fadeSpeed">フェードスピード</param>
     public void FadeOutChangeSystem(float fadeSpeed = 0.02f)
     {
         StartCoroutine(FadeOutSceneChangeStart(fadeSpeed));

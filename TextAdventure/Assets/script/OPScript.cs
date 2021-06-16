@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
@@ -17,6 +16,7 @@ public class OPScript : MonoBehaviour
     {
         skipObj.SetActive(false);
         backGround.SetActive(true);
+        videoOBJ.loopPointReached += VideoEnd;
         StartCoroutine(WaeninngObjFade());
     }
 
@@ -31,6 +31,10 @@ public class OPScript : MonoBehaviour
                 skipObj.SetActive(true);
             }
         }
+    }
+    void VideoEnd(VideoPlayer vp)
+    {
+        SceneManager.LoadScene("Title");
     }
 
     IEnumerator WaeninngObjFade()

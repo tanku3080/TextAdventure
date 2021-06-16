@@ -6,17 +6,32 @@ public class TitleSceneButton : MonoBehaviour
 {
     [SerializeField] GameObject stageSelectButtonObjs = null;
     [SerializeField] GameObject Ok_NoButton = null;
+    [SerializeField] GameObject iamgeObj = null;
+    [SerializeField] CanvasGroup titleImageGroup = null;
+    [SerializeField] AudioClip titleMusic = null;
+    [SerializeField] AudioSource source = null;
+    bool musicPlayFalg = false;
     // Start is called before the first frame update
     void Start()
     {
         GameManager.Instance.UiActiveSystem(Ok_NoButton,false);
+        FadeAndSceneChange.Instance.FadeSystem(FadeAndSceneChange.FADE_STATUS.FADE_OUT,0.001f);
+        titleImageGroup.alpha = 0f;
+        source.clip = titleMusic;
+        source.loop = true;
     }
-
     // Update is called once per frame
     void Update()
     {
-        
+        if (FadeAndSceneChange.Instance.FadeStop && musicPlayFalg != true)
+        {
+            musicPlayFalg = true;
+            source.Play();
+            FadeAndSceneChange.Instance.FadeSystem(FadeAndSceneChange.FADE_STATUS.FADE_IN,0.001f,titleImageGroup);
+        }
     }
+
+
     //以下はstageselectのイベントに対応したメソッド
     public void StageButton1()
     {
