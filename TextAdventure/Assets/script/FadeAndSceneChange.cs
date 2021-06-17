@@ -117,7 +117,7 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
         SceneManager.LoadScene(changeName);
     }
 
-    /// <summary>ソーンが切り替わった時に呼ばれる</summary>
+    /// <summary>シーンが切り替わった時に呼ばれる</summary>
     /// <param name="from">ここから</param>
     /// <param name="to">ここに</param>
     private void SceneChangeEvent(Scene from,Scene to)

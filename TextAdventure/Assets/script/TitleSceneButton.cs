@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TitleSceneButton : MonoBehaviour
 {
@@ -47,7 +45,6 @@ public class TitleSceneButton : MonoBehaviour
 
         if (starButtonObject.alpha == 1)
         {
-            Debug.Log("スタートボタンがアクティブ");
             if (Input.GetKeyUp(KeyCode.Return) && startAfterButton.activeSelf == false)
             {
                 source.PlayOneShot(clickSfx);
