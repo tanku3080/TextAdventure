@@ -122,16 +122,16 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
     /// <param name="to">ここに</param>
     private void SceneChangeEvent(Scene from,Scene to)
     {
-        Debug.Log("呼ばれた");
+        Debug.Log($"{from}から{to}");
     }
 
     /// <summary>フェードアウトとシーン切り替えを行う</summary>
     /// <param name="fadeSpeed">フェードスピード</param>
-    public void FadeOutChangeSystem(float fadeSpeed = 0.02f)
+    public void FadeOutChangeSystem(float fadeSpeed = 0.02f,SCENE_STATUS status = SCENE_STATUS.AUTO)
     {
-        StartCoroutine(FadeOutSceneChangeStart(fadeSpeed));
+        StartCoroutine(FadeOutSceneChangeStart(fadeSpeed,status));
     }
-    private IEnumerator FadeOutSceneChangeStart(float fadeSpeed = 0.02f)
+    private IEnumerator FadeOutSceneChangeStart(float fadeSpeed = 0.02f,SCENE_STATUS status = SCENE_STATUS.NONE)
     {
         CanvasGroup group = GetComponent<CanvasGroup>();
         fadeStopFlag = false;
@@ -142,15 +142,32 @@ public class FadeAndSceneChange : Singleton<FadeAndSceneChange>
                 yield return null;
                 if (group.alpha >= 1)
                 {
-                    Debug.Log("ここまで来た");
                     SceneManager.activeSceneChanged += SceneChangeEvent;
-                    SceneChange(SCENE_STATUS.AUTO);
+                    switch (status)
+                    {
+                        case SCENE_STATUS.TITLE:
+                            SceneChange(SCENE_STATUS.TITLE);
+                            break;
+                        case SCENE_STATUS.GAME:
+                            SceneChange(SCENE_STATUS.GAME);
+                            break;
+                        case SCENE_STATUS.GAME_OVAR:
+                            SceneChange(SCENE_STATUS.GAME_OVAR);
+                            break;
+                        case SCENE_STATUS.GAME_CLEAR:
+                            SceneChange(SCENE_STATUS.GAME_CLEAR);
+                            break;
+                        case SCENE_STATUS.AUTO:
+                            SceneChange(SCENE_STATUS.AUTO);
+                            break;
+                        case SCENE_STATUS.NONE:
+                            break;
+                    }
                     while (true)
                     {
                         yield return null;
                         if (group.alpha <= 0)
                         {
-                            Debug.Log("終わりの到達点");
                             fadeStopFlag = true;
                             break;
                         }

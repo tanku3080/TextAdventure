@@ -12,8 +12,10 @@ public class OPScript : MonoBehaviour
     [SerializeField] GameObject backGround = null;
     [SerializeField] AudioClip pushSFX = null;
     [SerializeField] AudioSource source = null;
+    bool backGroundActivFlag = false;
     void Start()
     {
+        backGroundActivFlag = false;
         skipObj.SetActive(false);
         backGround.SetActive(true);
         videoOBJ.loopPointReached += VideoEnd;
@@ -30,6 +32,11 @@ public class OPScript : MonoBehaviour
                 videoOBJ.Pause();
                 skipObj.SetActive(true);
             }
+            if (backGroundActivFlag != true)
+            {
+                backGroundActivFlag = true;
+                backGround.SetActive(false);
+            }
         }
     }
     void VideoEnd(VideoPlayer vp)
@@ -44,7 +51,7 @@ public class OPScript : MonoBehaviour
             yield return null;
             if (group.alpha >= 1)
             {
-                yield return new WaitForSeconds(4);
+                yield return new WaitForSeconds(3);
                 while (true)
                 {
                     yield return null;
@@ -72,6 +79,5 @@ public class OPScript : MonoBehaviour
     private void OPStart()
     {
         videoOBJ.Play();
-        backGround.SetActive(false);
     }
 }
